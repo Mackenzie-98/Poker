@@ -1,15 +1,32 @@
 var names = ["As","Dos","Tres","Cuatro","Cinco","Seis","Siete","Ocho"
 , "Nueve","Diez","J","Q","K"];
+var almacenamiento=[{"numero":"","carta":"","cantidad":""}];
+function comparador(prop) {    
+    return function(a, b) {    
+        if (a[prop] > b[prop]) {    
+            return 1;    
+        } else if (a[prop] < b[prop]) {    
+            return -1;    
+        }    
+        return 0;    
+    }    
+}    
+  
 function actualizarTabla(){
     
     var cuerpo = document.getElementById("tabla1");
     var upd= document.createElement("tbody");
     let cur=1;
-    
+    almacenamiento=[];
     for(var i in localStorage){
         if(!localStorage.getItem(i))break;
+        let datos = JSON.parse(localStorage.getItem(i));
+        almacenamiento.push(datos);
+    }
+    almacenamiento.sort(comparador("cantidad"));
+    for(var i in almacenamiento){
         const fila = document.createElement("tr");
-        var datos = JSON.parse(localStorage.getItem(i));
+        let datos =almacenamiento[i];
         fila.innerHTML =` 
             <tr>
                 <td>${cur}</td>

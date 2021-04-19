@@ -108,9 +108,17 @@
                       <input type="text" class="form-control" id="form-numero">
                     </div>
                     <div class="mb-3">
-                      <label for="form-carta" class="form-label">Carta (trebol, pica, corazones, diamante)</label>
-                      <input type="text" class="form-control" id="form-carta">
+                      <label for="form-carta" class="form-label">Carta</label>
+                      <select class="form-select" aria-label="Default select example" id="form-carta">
+                        
+                        <option selected>Seleccione el tipo de carta</option>
+                        <option value="pica">Pica</option>
+                        <option value="trebol">Trebol</option>
+                        <option value="diamante">Diamante</option>
+                        <option value="corazones">Corazones</option>
+                      </select>
                     </div>
+
                     <div class="row justify-content-center">
                         <button type="button" onclick ="registrarCarta()" class="col-md-3 btn btn-primary">Guardar</button>
                     </div>
