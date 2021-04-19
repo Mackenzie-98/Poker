@@ -1,0 +1,14 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+#showdown{
+    width: 40%;
+}
+article .carta{
+    width: 100%;
+}
+#fila1{
+    background-color: blue;
+}
