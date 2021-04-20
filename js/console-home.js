@@ -1,6 +1,24 @@
 var names = ["As","Dos","Tres","Cuatro","Cinco","Seis","Siete","Ocho"
 , "Nueve","Diez","J","Q","K"];
 var almacenamiento=[{"numero":"","carta":"","cantidad":""}];
+function cargarDatos(){
+    fetch("data.json")
+      .then(response => response.json())
+      .then(datos => tablaInicial(datos))
+      .catch(error => console.log(error.message));
+}
+function tablaInicial(datos){
+    for(let i =0 ; i<datos.length;i++){
+        let key=datos[i].numero+" "+datos[i].carta;
+        if(localStorage.getItem(key)){
+            break;
+        }
+        else{
+            localStorage.setItem(key,JSON.stringify({"numero":datos[i].numero,"carta":datos[i].carta,"cantidad":0}));
+        } 
+    }
+    actualizarTabla();
+}
 function comparador(prop) {    
     return function(a, b) {    
         if (a[prop] > b[prop]) {    
@@ -13,7 +31,6 @@ function comparador(prop) {
 }    
   
 function actualizarTabla(){
-    
     var cuerpo = document.getElementById("tabla1");
     var upd= document.createElement("tbody");
     let cur=1;
@@ -22,6 +39,9 @@ function actualizarTabla(){
         if(!localStorage.getItem(i))break;
         let datos = JSON.parse(localStorage.getItem(i));
         almacenamiento.push(datos);
+    }
+    for(let i in almacenamiento){
+        console.log(almacenamiento[i]);
     }
     almacenamiento.sort(comparador("cantidad"));
     for(var i in almacenamiento){
@@ -46,7 +66,7 @@ function registrarCarta(){
         localStorage.setItem(numero+" "+carta,JSON.stringify({"numero":numero,"carta":carta,"cantidad":JSON.parse(localStorage.getItem(numero+" "+carta)).cantidad+1}));
     }
     else{
-        localStorage.setItem(numero+" "+carta,JSON.stringify({"numero":numero,"carta":carta,"cantidad":1}));
+        localStorage.setItem(numero+" "+carta,JSON.stringify({"numero":numero,"carta":carta,"cantidad":0}));
     }
     actualizarTabla();
 }
@@ -59,4 +79,4 @@ function aumentarCarta(numero,carta){
         alert("La carta no está registrada.");
     }
 }
-actualizarTabla();
+cargarDatos();
